@@ -1,0 +1,45 @@
+services:
+  airflow-db:
+    image: postgres:17-alpine
+    container_name: wikipulse-airflow-db
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow_db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  airflow:
+    image: apache/airflow:3.1.5
+    container_name: wikipulse-airflow
+    depends_on:
+      - airflow-db
+    environment:
+      AIRFLOW_UID: 1000
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__API__SECRET_KEY: wikipulse-secret-key
+    command: standalone
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./config:/opt/airflow/config
+      - ./plugins:/opt/airflow/plugins
+    networks:
+      - default
+      - wikipulse_network
+    restart: unless-stopped
+
+volumes:
+  airflow_db_data:
+
+networks:
+  default:
+
+  wikipulse_network:
+    external: true
+    name: wikipulse_default

@@ -1,0 +1,31 @@
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Data files
+data/bronze/*
+data/silver/*
+!data/bronze/.gitkeep
+!data/silver/.gitkeep
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Spark checkpoints and runtime metadata
+data/checkpoints/
+data/**/_spark_metadata/
