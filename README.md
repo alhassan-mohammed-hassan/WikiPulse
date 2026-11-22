@@ -2,80 +2,122 @@
 
 WikiPulse is a real-time data engineering platform designed to collect, process, store, and analyze live Wikipedia activity events.
 
-The platform streams Wikipedia events through a distributed data pipeline, processes incoming data in real time, stores processed data in a structured format, and provides analytics through an interactive dashboard.
+The platform captures live events from Wikipedia, processes streaming data through a distributed data pipeline, stores data in a multi-layer data lake, and delivers analytical insights through an interactive dashboard.
 
 ---
 
 ## Architecture
 
-Wikipedia EventStreams → Python Bridge → Apache NiFi → Apache Kafka → Apache Spark Structured Streaming → Bronze & Silver Data Layers → PostgreSQL → Gold Analytics → Streamlit Dashboard
+```text
+Wikipedia EventStreams
+        │
+        ▼
+   Python Bridge
+        │
+        ▼
+     Apache NiFi
+        │
+        ▼
+     Apache Kafka
+        │
+        ▼
+Spark Structured Streaming
+        │
+        ├── Bronze Layer
+        │
+        └── Silver Layer
+                │
+                ▼
+          PostgreSQL
+                │
+                ▼
+           Gold Layer
+                │
+                ▼
+       Streamlit Dashboard
 
-Apache Airflow orchestrates scheduled Gold-layer data refreshes.
+Apache Airflow orchestrates scheduled Gold-layer refreshes.
+```
 
 ---
 
 ## Tech Stack
 
-- **Python** – Event collection and data processing
-- **Apache Kafka** – Real-time event streaming
-- **Apache NiFi** – Data flow management and ingestion
-- **Apache Spark Structured Streaming** – Stream processing
-- **Parquet** – Data storage format
-- **PostgreSQL** – Analytics database
-- **Apache Airflow** – Workflow orchestration
-- **Streamlit** – Interactive dashboard
-- **Docker & Docker Compose** – Containerization
+| Technology | Purpose |
+|---|---|
+| Python | Data collection and event processing |
+| Apache NiFi | Data flow management and ingestion |
+| Apache Kafka | Distributed event streaming |
+| Apache Spark Structured Streaming | Real-time data processing |
+| Parquet | Data lake storage format |
+| PostgreSQL | Analytics and data storage |
+| Apache Airflow | Workflow orchestration |
+| Streamlit | Interactive dashboard |
+| Docker | Containerization |
+| Docker Compose | Multi-service deployment |
 
 ---
 
 ## Data Pipeline
 
-### 1. Real-Time Data Ingestion
-Live Wikipedia events are collected from Wikipedia EventStreams and forwarded through a Python bridge.
+### 1. Data Ingestion
+
+Live events are collected from Wikipedia EventStreams through a Python bridge.
 
 ### 2. Data Flow Management
-Apache NiFi manages the incoming event flow and routes events into Kafka.
 
-### 3. Streaming Infrastructure
-Apache Kafka acts as the event streaming backbone, enabling reliable communication between pipeline components.
+Apache NiFi manages the event flow and routes incoming data through the ingestion pipeline.
+
+### 3. Event Streaming
+
+Apache Kafka acts as the distributed streaming backbone, allowing event-driven communication between pipeline components.
 
 ### 4. Stream Processing
-Apache Spark Structured Streaming processes incoming events and organizes data into different layers.
+
+Apache Spark Structured Streaming processes incoming events in real time.
 
 ### 5. Data Lake
-Processed data is stored in Parquet format using a layered architecture:
 
-- **Bronze:** Raw event data
-- **Silver:** Processed and structured data
+Processed events are stored in Parquet format using a layered architecture:
 
-### 6. Analytics Layer
-PostgreSQL stores analytical data and serves as the backend for dashboard queries.
+- **Bronze Layer:** Raw event data.
+- **Silver Layer:** Processed and structured data.
+
+### 6. Analytics Database
+
+PostgreSQL stores structured event data and analytical information used by the dashboard.
 
 ### 7. Gold Layer
-Gold tables provide aggregated and analytical datasets, including:
 
-- Wiki activity analytics
-- Event metrics
-- User activity
-- Hourly activity trends
+The Gold layer provides aggregated analytical data for reporting and insights.
 
 ### 8. Workflow Orchestration
-Apache Airflow automatically schedules Gold-layer refreshes.
+
+Apache Airflow automates and schedules Gold-layer data refresh workflows.
 
 ### 9. Dashboard
-Streamlit provides an interactive dashboard for monitoring Wikipedia activity and exploring real-time metrics.
+
+Streamlit provides an interactive interface for monitoring Wikipedia activity and exploring analytics.
 
 ---
 
 ## Dashboard Features
 
-- Total Wikipedia events
-- Recent event activity
-- Active Wikipedia projects
-- Unique editors
-- Event activity monitoring
-- Hourly activity analytics
-- Wiki activity insights
+- Total event monitoring
+- Recent Wikipedia activity
+- Wikipedia project monitoring
+- Unique editors analysis
+- Event activity tracking
+- Hourly activity trends
+- Interactive analytics
+
+---
+
+## Resilience
+
+WikiPulse includes resilience testing to evaluate pipeline behavior during service interruptions and recovery scenarios.
+
+The distributed architecture allows individual components to be restarted while the pipeline continues recovering and processing incoming data.
 
 ---
 
@@ -84,8 +126,7 @@ Streamlit provides an interactive dashboard for monitoring Wikipedia activity an
 ```text
 WikiPulse/
 ├── airflow/
-│   ├── dags/
-│   └── docker-compose.yaml
+│   └── dags/
 ├── bridge/
 ├── dashboard/
 ├── data/
@@ -103,36 +144,69 @@ WikiPulse/
 ├── .env.example
 ├── .gitignore
 └── README.md
+```
+
 ---
 
 ## Screenshots
 
 ### NiFi Data Flow
+
 ![NiFi Canvas](screenshots/01_nifi_canvas.png)
 
 ### NiFi Provenance
+
 ![NiFi Provenance](screenshots/02_nifi_provenance.png)
 
+![NiFi Provenance](screenshots/03_nifi_provenance.png)
+
 ### Kafka Topics
+
 ![Kafka Topics](screenshots/04_kafka_topics.png)
 
 ### Kafka Event Streaming
+
 ![Kafka Raw Events](screenshots/05_kafka_raw_events.png)
 
 ### PostgreSQL Analytics
+
 ![PostgreSQL Aggregates](screenshots/06_postgresql_aggregates.png)
 
 ### Resilience Test
+
 ![Resilience Test](screenshots/07_resilience_test.png)
 
 ### Docker Containers
+
 ![Docker Containers](screenshots/08_docker_containers.png)
 
 ### Live Dashboard
+
 ![WikiPulse Dashboard](screenshots/09_dashboard_live.png)
 
 ### Spark Jobs
+
 ![Spark Jobs](screenshots/10_spark_ui_jobs.png)
 
 ### Spark Stages
+
 ![Spark Stages](screenshots/11_spark_ui_stages.png)
+
+---
+
+## Future Improvements
+
+- Advanced monitoring and observability
+- Additional real-time analytics
+- Improved alerting mechanisms
+- Expanded dashboard visualizations
+- Performance optimization
+
+---
+
+## Author
+
+**Abdullah Hassan**
+
+Communication and Electronics Engineering  
+Data Engineering | Real-Time Streaming | Distributed Data Systems
