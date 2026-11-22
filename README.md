@@ -103,3 +103,36 @@ WikiPulse/
 ├── .env.example
 ├── .gitignore
 └── README.md
+---
+
+## Screenshots
+
+### NiFi Data Flow
+![NiFi Canvas](screenshots/01_nifi_canvas.png)
+
+### NiFi Provenance
+![NiFi Provenance](screenshots/02_nifi_provenance.png)
+
+### Kafka Topics
+![Kafka Topics](screenshots/04_kafka_topics.png)
+
+### Kafka Event Streaming
+![Kafka Raw Events](screenshots/05_kafka_raw_events.png)
+
+### PostgreSQL Analytics
+![PostgreSQL Aggregates](screenshots/06_postgresql_aggregates.png)
+
+### Resilience Test
+![Resilience Test](screenshots/07_resilience_test.png)
+
+### Docker Containers
+![Docker Containers](screenshots/08_docker_containers.png)
+
+### Live Dashboard
+![WikiPulse Dashboard](screenshots/09_dashboard_live.png)
+
+### Spark Jobs
+![Spark Jobs](screenshots/10_spark_ui_jobs.png)
+
+### Spark Stages
+![Spark Stages](screenshots/11_spark_ui_stages.png)

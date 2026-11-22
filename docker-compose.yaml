@@ -91,6 +91,8 @@ services:
   spark:
     image: spark:4.3.0-python3
     container_name: wikipulse-spark
+    ports:
+      - "4040:4040"
     environment:
       POSTGRES_URL: jdbc:postgresql://postgres:5432/wikipulse
       POSTGRES_USER: wikipulse

@@ -171,7 +171,7 @@ with st.sidebar:
     )
 
     st.markdown('<div class="side-label">DASHBOARD CONTROLS</div>', unsafe_allow_html=True)
-    auto_refresh = st.toggle("Auto refresh every 10 seconds", value=True, key="auto_refresh")
+    auto_refresh = st.toggle("Auto refresh every 10 seconds", value=False, key="auto_refresh")
     if st.button("↻  Refresh now", use_container_width=True):
         st.rerun()
     sidebar_updated = st.empty()
